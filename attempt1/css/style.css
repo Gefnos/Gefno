@@ -1,0 +1,90 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+.container{
+    padding: 30px;
+    width: 20%;
+    border-width: 5px;
+    border-style: solid;
+    background-color: #dee6ea;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    
+    border-image: linear-gradient(to top, gray, blue) 10 100%;
+}
+.main-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    border: 1px solid red;
+}
+.form-container{
+    margin-top: 10px;
+}
+.form-label{
+    padding-top: 30px;
+    font-weight: bolder;
+}
+.btn-primary{
+    background-color: rgb(68, 134, 255);
+    border: none;
+    width: 30%;
+}
+.btn-outline-primary{
+    width: 30%;
+}
+.alert-error{
+    width: 90%;
+    background-color: rgb(255, 195, 185);
+    border: 1px solid rgb(255, 123, 67);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0 auto;
+    text-align: center;
+}
+.date-container{
+    border-right: 2px solid #bbd9e7;
+    width: 20%;
+    height: 100vh;
+    background-color: #dee6ea;
+    min-width: 350px;
+    
+}
+.input-container{
+    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+   
+    margin: 0 auto;
+}
+#inpEdit{
+    width: 90%;
+}
+
+.crewData-container{
+    display: flex;
+}
+#sub_btn{
+    display: block;
+    border: 1px solid red;
+}
+
+#gradi-card{
+    color: white;
+    background: rgb(79,70,255);
+    background: linear-gradient(90deg, rgba(79,70,255,1) 0%, rgba(63,69,255,1) 29%, rgba(90,109,251,1) 100%);
+    border-radius: 10px;
+}
+.forma{
+    border: 1px solid red;
+}
+
+.form-control{
+    width: 75%;
+}
+
+
