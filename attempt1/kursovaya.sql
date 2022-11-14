@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 08 2022 г., 08:29
--- Версия сервера: 10.3.22-MariaDB
--- Версия PHP: 7.1.33
+-- Время создания: Ноя 09 2022 г., 15:46
+-- Версия сервера: 10.1.48-MariaDB
+-- Версия PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -69,13 +69,22 @@ CREATE TABLE `clients` (
 CREATE TABLE `offers` (
   `id` int(255) NOT NULL,
   `profession` varchar(1111) NOT NULL,
-  `countWorkPlace` int(255) NOT NULL,
+  `countPlace` int(255) NOT NULL,
   `salary` int(255) NOT NULL,
   `townRegion` varchar(1111) NOT NULL,
   `restrictSex` varchar(1111) NOT NULL,
   `age` int(255) NOT NULL,
-  `education` varchar(1111) NOT NULL
+  `education` varchar(1111) NOT NULL,
+  `user` varchar(1111) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+
+--
+-- Дамп данных таблицы `offers`
+--
+
+INSERT INTO `offers` (`id`, `profession`, `countPlace`, `salary`, `townRegion`, `restrictSex`, `age`, `education`, `user`) VALUES
+(1, 'Программист', 1, 90000, '5 микрорайон', 'Нет', 18, 'Среднее специальное', 'Yuliya'),
+(2, 'Web-дизайнер', 1, 44000, 'Центральный', 'Женский', 18, 'Высшее', 'Yuliya');
 
 -- --------------------------------------------------------
 
@@ -85,10 +94,17 @@ CREATE TABLE `offers` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `login` varchar(1111) NOT NULL,
+  `username` varchar(1111) NOT NULL,
   `password` varchar(1111) NOT NULL,
   `isBoss` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `isBoss`) VALUES
+(1, 'Yuliya', '$2y$10$x7JZ8jY3d400yQVp66451.aDv/r8ygmRnJLMs6QkVM1VwQgL7Ldie', NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -138,13 +154,13 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT для таблицы `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

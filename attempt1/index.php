@@ -11,19 +11,15 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-  
+
     <title>Document</title>
 </head>
 
 <body>
-
-
-
     <?php
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
     error_reporting(E_ALL);
-    // require('sendOffer.php');
     require_once __DIR__ . '/boot.php';
 
     $user = null;
@@ -44,6 +40,9 @@
         <h2>Профиль</h2>
         <a href="">Нажать</a>
 
+        <table space>
+
+        </table>
         <script>
             document.getElementsByTagName("a")[0].onclick = () => {
                 document.getElementById("listCrew").innerHTML +=
@@ -101,11 +100,11 @@
                 <button class="nav-link" id="crew-tab" data-bs-toggle="tab" data-bs-target="#crew" type="button" role="tab" aria-controls="crew" aria-selected="false">Мои предложения</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="cruise-tab" data-bs-toggle="tab" data-bs-target="#cruise" type="button" role="tab" aria-controls="cruise" aria-selected="false">Заявки</button>
+                <button class="nav-link" id="offers-tab" data-bs-toggle="tab" data-bs-target="#offers" type="button" role="tab" aria-controls="offers" aria-selected="false">Заявки</button>
             </li>
-         
+
         </ul>
-                            
+
         <div class="tab-content" id="myTabContent">
 
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -182,103 +181,168 @@
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-crew-tab">
                         <div class="d-flex flex-wrap justify-content-around w-100 border border-primary" id="listCrew">
-                        <div class="border border-success w-50">
+                            <div class="border border-success w-50">
 
-                                    <form method="post" action="sendOffer.php">
-                                        <div class="d-flex flex-wrap ">
-                                            <div class="w-50 ">
-                                                <div class="form-group">
-                                                    <label for="profession">Профессия</label>
-                                                    <input type="text" class="form-control" id="profession" name="profession">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="countPlace">Кол-во рабочих мест</label>
-                                                    <input type="number" class="form-control" id="countPlace" name="countPlace">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="salary">Зарплата</label>
-                                                    <input type="number" class="form-control" id="salary" name="salary">
-                                                </div>
+                                <form method="post" action="sendOffer.php">
+                                    <div class="d-flex flex-wrap ">
+                                        <div class="w-50 ">
+                                            <div class="form-group">
+                                                <label for="profession">Профессия</label>
+                                                <input type="text" class="form-control" id="profession" name="profession">
                                             </div>
-
-                                            <div class="w-50">
-                                                <div class="form-group">
-                                                    <label for="townRegion">Регион города</label>
-                                                    <input type="text" class="form-control" id="townRegion" name="townRegion">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="restrictSex">Ограничение по полу</label>
-                                                    <input type="text" class="form-control" id="restrictSex" name="restrictSex">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="age">Возраст</label>
-                                                    <input type="number" class="form-control" id="age" name="age">
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="countPlace">Кол-во рабочих мест</label>
+                                                <input type="number" class="form-control" id="countPlace" name="countPlace">
                                             </div>
-                                            <div class="w-100 d-flex justify-content-center">
-                                                <div class="form-group w-50 ">
-                                                    <label for="education">Образование</label>
-                                                    <input type="text" class="form-control" id="education" name="education">
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="salary">Зарплата</label>
+                                                <input type="number" class="form-control" id="salary" name="salary">
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mt-3 w-25">Предложить заявку</button>
-                                    </form>
-                                    <form action="do_Unloading.php" method="post">
-                                        <button type="submit" class="btn btn-success mt-3 w-25">Выгрузить</button>
-                                    </form>
-                                </div>
+
+                                        <div class="w-50">
+                                            <div class="form-group">
+                                                <label for="townRegion">Регион города</label>
+                                                <input type="text" class="form-control" id="townRegion" name="townRegion">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="restrictSex">Ограничение по полу</label>
+                                                <input type="text" class="form-control" id="restrictSex" name="restrictSex">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="age">Возраст</label>
+                                                <input type="number" class="form-control" id="age" name="age">
+                                            </div>
+                                        </div>
+                                        <div class="w-100 d-flex justify-content-center">
+                                            <div class="form-group w-50 ">
+                                                <label for="education">Образование</label>
+                                                <input type="text" class="form-control" id="education" name="education">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3 w-25">Предложить заявку</button>
+                                </form>
+                                <form action="WorkOffers.php" method="post">
+                                    <button type="submit" class="btn btn-success mt-3 w-25">Выгрузить</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+
+            <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-buy-tab">
-                        <div class="data-ship d-flex justify-content-center w-50 border border-success mx-auto">
+                    <div class="tab-pane fade show active" id="v-pills-offers" role="tabpanel" aria-labelledby="v-pills-offers-tab">
+                        <div class="for-container d-flex justify-content-around w-100">
+                            <div class="for-worker w-50 text-center">
+                                <h3>Профиль для работника:</h3>
+                                <form class="form-worker row g-3" name="form-worker" id="form-worker" method="POST" action="do_Offers.php">
 
+                                    <div class="col-md-6">
+                                        <label for="reg_number" class="form-label">Регистрационный номер</label>
+                                        <input type="text" name="reg_number" class="reg_number form-control" id="reg_number" placeholder="0007654...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="surName" class="form-label">Фамилия</label>
+                                        <input type="text" name="surName" class="surName form-control" id="surName" placeholder="Иванов...">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="firstName" class="form-label">Имя</label>
+                                        <input type="text" name="firstName" class="firstName form-control" id="firstName" placeholder="Иван...">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="Patronymic" class="form-label">Отчество</label>
+                                        <input type="text" name="Patronymic" class="Patronymic form-control" id="Patronymic" placeholder="Иванович...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label">Адресс</label>
+                                        <input type="text" name="address" class="address form-control" id="address" placeholder="г. Камышин, д. 54, кв. 42...">
+                                    </div>
 
+                                    <div class="col-md-6">
+                                        <label for="telephone" class="form-label">Телефон</label>
+                                        <input type="number" name="telephone" class="telephone form-control" id="telephone" placeholder="89049867588...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="education" class="form-label">Образование</label>
+                                        <input type="text" name="education" class="education form-control" id="education" placeholder="Среднее...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="paymentReceipt" class="form-label">Платежный счет</label>
+                                        <input type="text" name="paymentReceipt" class="paymentReceipt form-control" id="paymentReceipt" placeholder="...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="requests" class="form-label">Желаемая должность</label>
+                                        <input type="text" name="requests" class="requests form-control" id="requests" placeholder="Среднее...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="minSalary" class="form-label">Мин. зарплата</label>
+                                        <input type="text" name="minSalary" class="minSalary form-control" id="minSalary" placeholder="Среднее...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="townRegion" class="form-label">регион города</label>
+                                        <input type="text" name="townRegion" class="townRegion form-control" id="townRegion" placeholder="Среднее...">
+                                    </div>
 
-                            <form method="post" action="do_unload.php">
-                                
-                                <div class="mb-3">
-                                    <p>
-                                        Экипаж судна:
-                                    </p>
-                                </div>
-                                <div class="mb-3">
-                                    <p>
-                                        Судно:
-                                    </p>
-                                </div>
-                                <div class="mb-3">
-                                    <p>
-                                        Название порта: 
-                                    </p>
-                                </div>
-                                <div class="mb-3">
-                                    <p>
-                                        Дата отправления: <?php echo $_dateSubmit ?>
-                                    </p>
-                                </div>
-                                <div class="mb-3">
-                                    <p>
-                                        Где корабль: 
-                                        <?php 
-                                         
-                                        ?>
-                                    </p>
-                                </div>
+                                    <div class="col-12">
+                                        <select name="sex" class="sex form-select" aria-label="Пример выбора по умолчанию" id="sex">
+                                            <option selected value="0">Женщина</option>
+                                            <option value="1">Мужчина</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" name="form-worker-submit" id="form-worker-submit" class="btn btn-primary">Сохранить</button>
+                                    </div>
+                                </form>
+                            </div>
 
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                            <div class="for-boss w-50 text-center">
+                                <h3>Профиль для работодателя:</h3>
+                                <form class="form-worker row g-3" name="form-worker" id="form-worker" method="POST" action="do_Offers.php">
+
+                                    <div class="col-md-6">
+                                        <label for="titleFirm" class="form-label">Название фирмы</label>
+                                        <input type="text" name="titleFirm" class="titleFirm form-control" id="titleFirm" placeholder="0007654...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="legalForm" class="form-label">Организационно-правовая форма</label>
+                                        <input type="text" name="legalForm" class="legalForm form-control" id="legalForm" placeholder="Иванов...">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="ownership" class="form-label">Форма собственности</label>
+                                        <input type="text" name="ownership" class="ownership form-control" id="ownership" placeholder="Иван...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label">Адресс</label>
+                                        <input type="text" name="address" class="address form-control" id="address" placeholder="г. Камышин, д. 54, кв. 42...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="telephone" class="form-label">Телефон</label>
+                                        <input type="number" name="telephone" class="telephone form-control" id="telephone" placeholder="89049867588...">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="persInspector" class="form-label">Инспектор по кадрам</label>
+                                        <input type="text" name="persInspector" class="persInspector form-control" id="persInspector" placeholder="Иванович...">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="serviceBuy" class="form-label">Услуги по найму</label>
+                                        <input type="text" name="serviceBuy" class="serviceBuy form-control" id="serviceBuy" placeholder="Иванович...">
+                                    </div>
+              
+                                    <div class="col-12">
+                                        <button type="submit" name="form-boss-submit" class="btn btn-primary">Сохранить</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        
+
         <!-- 
                 
                                 // for (var i = 0; i < 5; i++) {} // let currTime=new Date(); // var TimeShip=new Date(); // TimeShip.setSeconds(TimeShip.getSeconds() + 5); // $('.res').text((TimeShip.getHours() + ":" + TimeShip.getMinutes() + ":" + TimeShip.getSeconds())); // if (currTime> Tim)
