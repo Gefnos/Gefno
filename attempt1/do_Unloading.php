@@ -32,24 +32,3 @@ foreach($result as $row){
 
 }
 echo "</table>";
-// if (is_array($result)) {
-//     while ($row = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
-//         $id = $row['id'];
-//         $profession = $row['profession'];
-//         $countPlace = $row['countPlace'];
-//         $salary = $row['salary'];
-//         $townRegion = $row['townRegion'];
-//         $restrictSex = $row['restrictSex'];
-//         $age = $row['age'];
-//         $education = $row['education'];
-//         echo "<p>$id - $profession - $countPlace - $salary - $townRegion - $restrictSex - $age - $education</p>";
-//     }
-// }
-
- // foreach ($result as $row) {
-    //     $firstName = $row["firstName"];
-    //     $titleShip = $row["titleShip"];
-    //     // $port = $row["Port_ship"];
-    //     // var_dump($firstName);
-    //     // echo $port.', ';
-    // }

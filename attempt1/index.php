@@ -100,9 +100,11 @@
                 <button class="nav-link" id="crew-tab" data-bs-toggle="tab" data-bs-target="#crew" type="button" role="tab" aria-controls="crew" aria-selected="false">Мои предложения</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="offers-tab" data-bs-toggle="tab" data-bs-target="#offers" type="button" role="tab" aria-controls="offers" aria-selected="false">Заявки</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Профиль</button>
             </li>
-
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="offers-tab" data-bs-toggle="tab" data-bs-target="#offers" type="button" role="tab" aria-controls="offers" aria-selected="false">Все заявки</button>
+            </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
@@ -232,9 +234,9 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab">
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-offers" role="tabpanel" aria-labelledby="v-pills-offers-tab">
+                    <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         <div class="for-container d-flex justify-content-around w-100">
                             <div class="for-worker w-50 text-center">
                                 <h3>Профиль для работника:</h3>
@@ -330,7 +332,7 @@
                                         <label for="serviceBuy" class="form-label">Услуги по найму</label>
                                         <input type="text" name="serviceBuy" class="serviceBuy form-control" id="serviceBuy" placeholder="Иванович...">
                                     </div>
-              
+
                                     <div class="col-12">
                                         <button type="submit" name="form-boss-submit" class="btn btn-primary">Сохранить</button>
                                     </div>
@@ -340,101 +342,18 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <!-- 
-                
-                                // for (var i = 0; i < 5; i++) {} // let currTime=new Date(); // var TimeShip=new Date(); // TimeShip.setSeconds(TimeShip.getSeconds() + 5); // $('.res').text((TimeShip.getHours() + ":" + TimeShip.getMinutes() + ":" + TimeShip.getSeconds())); // if (currTime> Tim)
-
-                                    // var myTime = window.performance.now();
-                                    // var _cont = $('.cont').text();
-                                    // var _Seconds = $('.seconds').text(),
-                                    // int;
-                                    // int = setInterval(function() { // запускаем интервал
-                                    // if (_Seconds > 0) {
-                                    // _Seconds--; // вычитаем 1
-                                    // $('.res').text(_Seconds); // выводим получившееся значение в блок
-                                    // } else {
-                                    // // clearInterval(int); // очищаем интервал, чтобы он не продолжал работу при _Seconds = 0
-                                    // $('.cont').text("43.7949, 028.6111");
-
-                                    // // updateCoordinates();
-                                    // i++;
-                                    // }
-                                    // }, 1000);
-                        <div class="other-container">
-                            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                </div>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="img/crew1.webp" class="d-block w-100" alt="...">
-                                        <div class="carousel-caption d-none d-md-block">
-                                            <h5>Сборный груз</h5>
-                                            <p>Все суда приспособлены для перевозки практически любых генеральных и навалочных грузов.</p>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="img/crew2.jpg" class="d-block w-100" alt="...">
-                                        <div class="carousel-caption d-none d-md-block">
-                                            <h5>Сквозной сервис</h5>
-                                            <p>Камышинское морское пароходство предоставляет услуги по доставке груза в контейнерах из Москвы на Дальний Восток.</p>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="img/crew3.jpg" class="d-block w-100" alt="...">
-                                        <div class="carousel-caption d-none d-md-block">
-                                            <h5>Линейный перевозки</h5>
-                                            <p>Миссия Камышинского морского пароходства - обеспечить всем необходимым жителей российских регионов, не имеющих постоянной устойчивой сухопутной связи с основной частью страны.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div> -->
-        </div>
-        </div>
-
-
-
-
-        </div>
-
-
-
-        <!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active" data-bs-interval="5000">
-                                <img class="d-block w-100" src="img/ship1.jpg" alt="First slide">
-                            </div>
-                            <div class="carousel-item" data-bs-interval="5000">
-                                <img class="d-block w-100" src="img/ship2.jpg" alt="Second slide">
-                            </div>
-                            <div class="carousel-item" data-bs-interval="5000">
-                                <img class="d-block w-100" src="img/ship3.jpg" alt="Third slide">
-                            </div>
-                        </div>
-                      
+            <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-offers" role="tabpanel" aria-labelledby="v-pills-offers-tab">
+                        
                     </div>
                 </div>
-                </div> -->
-
-
-
-
-
-        <!-- <button type="submit" name="logout" class="btn btn-primary">Logout</button> -->
-        <!-- </form> -->
-
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
     <?php } else { ?>
 
         <div class="main-container">

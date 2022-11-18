@@ -6,6 +6,7 @@ if (check_auth()) {
     $stmt->execute(['id' => $_SESSION['user_id']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     $username = $user['username'];
+    echo $username;
 }
 if (isset($_POST['form-worker-submit'])) {
     $stmt = pdo()->prepare("INSERT INTO `clients` (`reg_number`, `surName`, `firstName`, `Patronymic`, `address`, `telephone`, `sex`, `education`, `paymentReceipt`, `requests`, `minSalary`, `townRegion`, `username`)
@@ -27,5 +28,16 @@ if (isset($_POST['form-worker-submit'])) {
     ]);
 }
 if(isset($_POST['form-boss-submit'])){
-    
+    $stmt = pdo()->prepare("INSERT INTO `bosses` (`titleFirm`,`legalForm`,`ownership`,`address`,`telephone`,`persInspector`,`serviceBuy`,`username`)
+    VALUES (:titleFirm,:legalForm,:ownership,:address,:telephone,:persInspector,:serviceBuy,:username)");
+    $stmt->execute([
+        'username' => $username,
+        'titleFirm' => $_POST['titleFirm'],
+        'legalForm' => $_POST['legalForm'],
+        'ownership' => $_POST['ownership'],
+        'address' => $_POST['address'],
+        'telephone' => $_POST['telephone'],
+        'persInspector' => $_POST['persInspector'],
+        'serviceBuy' => $_POST['serviceBuy'],
+    ]);
 }
