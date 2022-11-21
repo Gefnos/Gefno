@@ -29,17 +29,22 @@
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
         $stmt->execute(['id' => $_SESSION['user_id']]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $username = $user['username'];
     }
 
     ?>
     <?php if ($user) { ?>
 
         <h1>Добро пожаловать, <?= htmlspecialchars($user['username']) ?>!</h1>
-
-        <!-- <form class="mt-5" method="post" action="do_logout.php"> -->
-        <h2>Профиль</h2>
-        <a href="">Нажать</a>
-
+        <a href="">Добавить предложение</a>
+        <form action="#" method="get">
+            <button type="submit" name="logout" id="logout" class="btn btn-primary w-25">Выйти</button>
+            <? session_start();
+            if (isset($_GET['logout'])) {
+                session_destroy();
+                header('location: Login.php');
+            } ?>
+        </form>
         <table space>
 
         </table>
@@ -87,6 +92,9 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary mt-3 w-25">Предложить заявку</button>
                                     </form>
+                                    <form action="WorkOffers.php" method="post">
+                                        <button type="submit" class="btn btn-success mt-3 w-25">Выгрузить</button>
+                                    </form>
                                 </div>`;
                 return false;
             };
@@ -94,7 +102,7 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Главная</button>
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Регистрационный взнос</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="crew-tab" data-bs-toggle="tab" data-bs-target="#crew" type="button" role="tab" aria-controls="crew" aria-selected="false">Мои предложения</button>
@@ -110,73 +118,59 @@
         <div class="tab-content" id="myTabContent">
 
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="d-flex justify-content-between">
-                    <div class="date-container border border-success">
-                        <div class="input-container">
-                            <label for="titleShip" class="form-label">Название</label>
-                            <input type="text" class="form-control" name="titleShip" id="inpEdit">
-                        </div>
-                        <div class="input-container">
-                            <label for="Capacity" class="form-label">Грузоподъемность</label>
-                            <input type="number" class="form-control" name="Capacity" id="inpEdit">
-                        </div>
-                        <div class="input-container">
-                            <label for="Port" class="form-label">Порт прописки</label>
-                            <input type="text" class="form-control" name="Port" id="inpEdit">
-                        </div>
-                        <div class="input-container">
-
-                            <label for="Role" class="form-label">Судовая роль</label>
-                            <input type="text" class="form-control" name="Role" id="inpEdit">
-                        </div>
-                        <div class="input-container">
-                            <label for="Coordinates" class="form-label">Координаты</label>
-                            <input type="boolval" class="form-control" name="Coordinates" id="inpEdit">
-                            <small>Где 0 - в порте, 1 - в пути</small>
-                        </div>
-                        <div class="input-container">
-                            <label for="dateRepair" class="form-label">Дата постановки на капитальный ремонт</label>
-                            <input type="date" class="form-control mb-2" name="dateRepair" id="inpEdit">
-                        </div>
-                        <div class="input-container">
-                            <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                        </div>
+                <div class="d-flex w-100 mx-auto">
+                    <!-- Кнопка-триггер модального окна -->
+                    <div class="text-center mt-5 w-100">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Сформировать чек по оплате регистрационного взноса
+                        </button>
                     </div>
 
-                    <div class="other-container">
-                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="img/ship1.jpg" class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Сборный груз</h5>
-                                        <p>Все суда приспособлены для перевозки практически любых генеральных и навалочных грузов.</p>
-                                    </div>
+
+                    <!-- Модальное окно -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Квитанция об оплате регистрационного взноса</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="img/ship2.jpg" class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Сквозной сервис</h5>
-                                        <p>Камышинское морское пароходство предоставляет услуги по доставке груза в контейнерах из Москвы на Дальний Восток.</p>
-                                    </div>
+                                <div class="modal-body">
+                                    <form class="w-75 border border-primary rounded-4 bg-light p-5 mx-auto" method="get" action="saveReceipt.php">
+                                        <div class="form-group mb-3">
+                                            <label for="cost" class="fs-3">Номер: </label>
+                                            <input type="text" readonly class="form-control-plaintext" name="idReceipt" id="idReceipt" value="<? $idReceipt = '000' . rand(100000, 9999999);
+                                                                                                                                                echo $idReceipt; ?>">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="signedby" class="fs-3">Кем подписан: </label>
+                                            <input type="text" readonly class="form-control-plaintext" name="signedby" id="signedby" value="Лопохова И.Р.">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="client" class="fs-3">Клиент: </label>
+                                            <input type="text" readonly class="form-control-plaintext" name="client" id="client" value="<? echo $username ?>">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="date" class="fs-3">Дата выдачи: </label>
+                                            <input type="text" readonly class="form-control-plaintext" name="date" id="date" value="<? $curDate = date('Y-m-d');
+                                                                                                                                    echo $curDate; ?>">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="cost" class="fs-3">Стоимость: </label>
+                                            <input type="text" readonly class="form-control-plaintext" name="cost" id="cost" value="2499">
+                                        </div>
+                                        <div class="form-group mb-3 text-center">
+                                            <button type="submit" name="saveReceipt" id="saveReceipt" class="btn btn-primary w-75">Сохранить чек</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="img/ship3.jpg" class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Линейный перевозки</h5>
-                                        <p>Миссия Камышинского морского пароходства - обеспечить всем необходимым жителей российских регионов, не имеющих постоянной устойчивой сухопутной связи с основной частью страны.</p>
-                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="tab-pane fade" id="crew" role="tabpanel" aria-labelledby="crew-tab">
@@ -220,10 +214,16 @@
                                             <div class="form-group w-50 ">
                                                 <label for="education">Образование</label>
                                                 <input type="text" class="form-control" id="education" name="education">
+                                                <div class="form-check mt-3">
+                                                    <input class="form-check-input" type="checkbox" name="isWork" id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Я ищу работу
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3 w-25">Предложить заявку</button>
+                                    <button type="submit" class="btn btn-primary mt-3 w-25" name="btnSaveOffer" id="btnSaveOffer">Предложить заявку</button>
                                 </form>
                                 <form action="WorkOffers.php" method="post">
                                     <button type="submit" class="btn btn-success mt-3 w-25">Выгрузить</button>
@@ -244,7 +244,9 @@
 
                                     <div class="col-md-6">
                                         <label for="reg_number" class="form-label">Регистрационный номер</label>
-                                        <input type="text" name="reg_number" class="reg_number form-control" id="reg_number" placeholder="0007654...">
+                                        <input type="text" readonly name="reg_number" class="reg_number form-control" id="reg_number" value="<? 
+                                        $stmt = pdo()->prepare("SELECT `idReceipt` FROM `receipts` WHERE `username` = :username");
+                                        $stmt->execute(['username' => $username]); $res = $stmt -> fetchAll(PDO::FETCH_ASSOC);   $stmt->setFetchMode(PDO::FETCH_ASSOC); echo $res[0]["idReceipt"]; ?>">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="surName" class="form-label">Фамилия</label>
@@ -346,7 +348,86 @@
             <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab">
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-offers" role="tabpanel" aria-labelledby="v-pills-offers-tab">
-                        
+                        <form action="#" method="post" class="w-100">
+                            <div class="d-flex w-100">
+                                <select name="findIs" class="findIs form-select w-25" aria-label="Пример выбора по умолчанию" id="findIs">
+                                    <option selected value="0">Ищу работника</option>
+                                    <option value="1">Ищу работу</option>
+                                </select>
+                                <div class="d-flex">
+                                    <button type="submit" name="btnFilters" class="btn btn-primary w-100">Сохранить</button>
+                                    <?php
+                                    if (isset($_POST['btnFilters'])) {
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+
+                        </form>
+                        <?php
+                        if (check_auth()) {
+                            // Получим данные пользователя по сохранённому идентификатору
+                            $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
+                            $stmt->execute(['id' => $_SESSION['user_id']]);
+                            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                            $username = $user['username'];
+                        }
+                        $findIs = $_POST['findIs'];
+                        if ($findIs == '1') {
+                            $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '1'");
+                            $stmt->execute();
+                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        } else {
+                            $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '0' ");
+                            $stmt->execute();
+                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        }
+
+
+                        echo "<table class='table' style='border-spacing: 0px 0px; width: 100%; font-size: 18px;'>" .  "<thead class='thead-table'><tr><th scope='col' style='width: 150px; text-align: center;border-bottom: 2px solid black;'>" . "<h3>Номер</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Профессия</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Кол-во рабочих мест</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Зарплата</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Регион города</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Ограничения по полу</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Возраст</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Образование</h3>" .
+                            "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Пользователь</h3>" .
+                            "</th><th scope='col' style='width: 90px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Работа</h3>" .
+                            "</th></tr></thead>";
+                        echo "<form>";
+                        foreach ($result as $row) {
+                            if ($row['isWork'] == '1') {
+                                $row['isWork'] = 'Работник';
+                            } else {
+                                $row['isWork'] = 'Работодатель';
+                            }
+                            echo
+                            "<tr><td>" .  "<input style='width: 150px;' name='id' type='text' readonly value='" . htmlspecialchars($row['id']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($row['profession']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($row['countPlace']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($row['salary']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='townRegion' type='text' readonly value='" . htmlspecialchars($row['townRegion']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='restrictSex' type='text' readonly value='" . htmlspecialchars($row['restrictSex']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='" . htmlspecialchars($row['age']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($row['education']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($row['user']) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($row['isWork']) . "'" .
+                                "</td><td>" . "<button style='width: 150px' type='submit' name='subOffer' class='btn btn-primary'>Согласовать</button>" .
+                                "</td></tr>";
+                        }
+                        echo "</table></form>";
+                        if (isset($_POST['subOffer'])) {
+                            $id = $_POST['id'];
+                            $completeOffer = 1; //1 - сделка согласована, 0 - не согласована
+                            $stmt = pdo()->prepare("UPDATE `offers` SET `completeOffer` = '$completeOffer' WHERE `id` = '$id'");
+                            $stmt->execute();
+                            //При выводе id будет браться всегда последняя запись из сгенерированной таблицы, т.к. у каждой строки одинаковый name='id'
+                            //Пытался сделать через name = 'id[]', но не смог автоматизировать запрос
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

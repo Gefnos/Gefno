@@ -24,9 +24,6 @@
     }
 
     ?>
-
-
-
     <div class="main-container">
         <div class="container">
             <form method="post" action="do_login.php" class="form-container">

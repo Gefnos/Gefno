@@ -1,6 +1,7 @@
 *{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
 }
+
 .container{
     padding: 30px;
     width: 20%;
@@ -11,7 +12,6 @@
     display: flex;
     flex-direction: column;
     align-self: center;
-    
     border-image: linear-gradient(to top, gray, blue) 10 100%;
 }
 .main-container{
@@ -64,26 +64,20 @@
     width: 90%;
 }
 
-.crewData-container{
-    display: flex;
-}
 #sub_btn{
     display: block;
     border: 1px solid red;
 }
 
-#gradi-card{
-    color: white;
-    background: rgb(79,70,255);
-    background: linear-gradient(90deg, rgba(79,70,255,1) 0%, rgba(63,69,255,1) 29%, rgba(90,109,251,1) 100%);
-    border-radius: 10px;
-}
 .forma{
     border: 1px solid red;
 }
 
 .form-control{
     width: 75%;
+}
+#receiptContainer{
+    display: none;
 }
 
 

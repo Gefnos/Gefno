@@ -32,9 +32,6 @@
         <li class="nav-item">
             <a class="nav-link active" href="WorkOffers.php">Мои вакансии</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/">Поиск работника</a>
-        </li>
     </ul>
     <?php
     if (check_auth()) {
