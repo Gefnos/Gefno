@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 24 2022 г., 13:06
+-- Время создания: Ноя 24 2022 г., 14:01
 -- Версия сервера: 10.4.24-MariaDB
 -- Версия PHP: 7.1.33
 
@@ -92,7 +92,7 @@ CREATE TABLE `offers` (
   `age` int(255) NOT NULL,
   `education` varchar(1111) NOT NULL,
   `user` varchar(1111) NOT NULL,
-  `isWork` tinyint(1) DEFAULT NULL COMMENT '0- работодатель\r\n1 - работник',
+  `isWork` int(2) DEFAULT NULL COMMENT '0- работодатель\r\n1 - работник\r\n2 - все',
   `completeOffer` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
@@ -105,7 +105,8 @@ INSERT INTO `offers` (`id`, `profession`, `countPlace`, `salary`, `townRegion`, 
 (2, 'Web-дизайнер', 1, 44000, 'Центральный', 'Женский', 18, 'Высшее', 'Yuliya', 0, NULL),
 (3, 'Инженер', 1, 80000, 'Дзержинский', 'Нет', 26, 'Высшее', 'Slava', 0, NULL),
 (4, 'Программист', 1, 120000, 'Городище', 'Нет', 42, 'Среднее специальное', 'Slava', 0, NULL),
-(5, 'Преподаватель', 1, 25000, 'Ленина', 'Нет', 27, 'Высшее', 'Dugin', 1, NULL);
+(5, 'Преподаватель', 1, 25000, 'Ленина', 'Нет', 27, 'Высшее', 'Dugin', 1, NULL),
+(6, 'Системный администратор', 3, 22000, 'ул. Волгоградская', 'Мужской', 20, 'Среднее специальное', 'Idris', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -207,7 +208,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT для таблицы `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `receipts`

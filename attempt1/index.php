@@ -351,8 +351,9 @@
                         <form action="#" method="post" class="w-100">
                             <div class="d-flex w-100">
                                 <select name="findIs" class="findIs form-select w-25" aria-label="Пример выбора по умолчанию" id="findIs">
-                                    <option selected value="0">Ищу работника</option>
+                                    <option value="0">Ищу работника</option>
                                     <option value="1">Ищу работу</option>
+                                    <option selected value="2">Все</option>
                                 </select>
                                 <div class="d-flex">
                                     <button type="submit" name="btnFilters" class="btn btn-primary w-100">Сохранить</button>
@@ -373,16 +374,31 @@
                             $username = $user['username'];
                         }
                         $findIs = $_POST['findIs'];
-                        if ($findIs == '1') {
-                            $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '1'");
-                            $stmt->execute();
-                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                        } else {
-                            $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '0' ");
-                            $stmt->execute();
-                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        switch ($findIs) {
+                            case '0':
+                                $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '1'");
+                                $stmt->execute();
+                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                break;
+                                case '1':
+                                    $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '0' ");
+                                    $stmt->execute();
+                                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                    break;
+                                    case '2':
+                                        $stmt = pdo()->prepare("SELECT * FROM `offers`");
+                                        $stmt->execute();
+                                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                        break;
+                                        default:
+                                        $stmt = pdo()->prepare("SELECT * FROM `offers`");
+                                        $stmt->execute();
+                                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                            break;
                         }
                         echo "<table class='table' style='border-spacing: 0px 0px; width: 100%; font-size: 18px;'>" .  "<thead class='thead-table'><tr><th scope='col' style='width: 150px; text-align: center;border-bottom: 2px solid black;'>" . "<h3>Номер</h3>" .
                             "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Профессия</h3>" .
@@ -395,9 +411,9 @@
                             "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Пользователь</h3>" .
                             "</th><th scope='col' style='width: 90px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Работа</h3>" .
                             "</th></tr></thead>";
+
                         echo "<form>";
                         for ($i=0; $i < count($result); $i++) { 
-                            var_dump($result[$i]['id']);
                             $resID = $result[$i]['id'];
                             $resProfession = $result[$i]['profession'];
                             $resCountPlace = $result[$i]['countPlace'];
@@ -408,33 +424,33 @@
                             $resEducation = $result[$i]['education'];
                             $resUser = $result[$i]['user'];
                             $resIsWork = $result[$i]['isWork'];
-
-                            if (isset($_POST["subOffer".$i])) {
-                                $completeOffer = 1; //1 - сделка согласована, 0 - не согласована
-                                $stmt = pdo()->prepare("UPDATE `offers` SET `completeOffer` = '$completeOffer' WHERE `id` = '$resID'");
-                                $stmt->execute();
-                            }
-                           
+                            $subOffer = 'subOffer'.$i;
                             if ($resIsWork == '1') {
                                 $resIsWork = 'Работник';
                             } else {
                                 $resIsWork = 'Работодатель';
                             }
                             echo
-                            "<tr><td>" .  "<input style='width: 150px;'     name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
+                                "<tr><td>"  .  "<input style='width: 150px;'     name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($resProfession) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($resCountPlace) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($resSalary) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='townRegion' type='text' readonly value='" . htmlspecialchars($resTownRegion) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='restrictSex' type='text' readonly value='" . htmlspecialchars($resRestrictSex) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='" . htmlspecialchars($resAge) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='От " . htmlspecialchars($resAge) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($resEducation) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resUser) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resIsWork) . "'" .
-                                "</td><td>" . "<button style='width: 150px' type='submit' name='subOffer".$i."'"."class='btn btn-primary'>Согласовать</button>" .
-                                "</td></tr>";    
+                                "</td><td>" . "<button style='width: 150px' type='submit' name='subOffer' class='btn btn-primary'>Согласовать</button>" .
+                                "</td></tr>";   
+                             
                         }
                         echo "</table></form>";
+                        if (isset($_POST["subOffer"])) {
+                            $completeOffer = 1; //1 - сделка согласована, 0 - не согласована
+                            $stmt = pdo()->prepare("INSERT INTO `offers` (`completeOffer`) VALUES ('$completeOffer')");
+                            $stmt->execute();
+                        } 
                         ?>
 
                     </div>
