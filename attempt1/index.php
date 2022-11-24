@@ -384,8 +384,6 @@
                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         }
-
-
                         echo "<table class='table' style='border-spacing: 0px 0px; width: 100%; font-size: 18px;'>" .  "<thead class='thead-table'><tr><th scope='col' style='width: 150px; text-align: center;border-bottom: 2px solid black;'>" . "<h3>Номер</h3>" .
                             "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Профессия</h3>" .
                             "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Кол-во рабочих мест</h3>" .
@@ -398,36 +396,47 @@
                             "</th><th scope='col' style='width: 90px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Работа</h3>" .
                             "</th></tr></thead>";
                         echo "<form>";
-                        foreach ($result as $row) {
-                            if ($row['isWork'] == '1') {
-                                $row['isWork'] = 'Работник';
+                        for ($i=0; $i < count($result); $i++) { 
+                            var_dump($result[$i]['id']);
+                            $resID = $result[$i]['id'];
+                            $resProfession = $result[$i]['profession'];
+                            $resCountPlace = $result[$i]['countPlace'];
+                            $resSalary = $result[$i]['salary'];
+                            $resTownRegion = $result[$i]['townRegion'];
+                            $resRestrictSex = $result[$i]['restrictSex'];
+                            $resAge = $result[$i]['age'];
+                            $resEducation = $result[$i]['education'];
+                            $resUser = $result[$i]['user'];
+                            $resIsWork = $result[$i]['isWork'];
+
+                            if (isset($_POST["subOffer".$i])) {
+                                $completeOffer = 1; //1 - сделка согласована, 0 - не согласована
+                                $stmt = pdo()->prepare("UPDATE `offers` SET `completeOffer` = '$completeOffer' WHERE `id` = '$resID'");
+                                $stmt->execute();
+                            }
+                           
+                            if ($resIsWork == '1') {
+                                $resIsWork = 'Работник';
                             } else {
-                                $row['isWork'] = 'Работодатель';
+                                $resIsWork = 'Работодатель';
                             }
                             echo
-                            "<tr><td>" .  "<input style='width: 150px;' name='id' type='text' readonly value='" . htmlspecialchars($row['id']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($row['profession']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($row['countPlace']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($row['salary']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='townRegion' type='text' readonly value='" . htmlspecialchars($row['townRegion']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='restrictSex' type='text' readonly value='" . htmlspecialchars($row['restrictSex']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='" . htmlspecialchars($row['age']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($row['education']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($row['user']) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($row['isWork']) . "'" .
-                                "</td><td>" . "<button style='width: 150px' type='submit' name='subOffer' class='btn btn-primary'>Согласовать</button>" .
-                                "</td></tr>";
+                            "<tr><td>" .  "<input style='width: 150px;'     name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($resProfession) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($resCountPlace) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($resSalary) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='townRegion' type='text' readonly value='" . htmlspecialchars($resTownRegion) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='restrictSex' type='text' readonly value='" . htmlspecialchars($resRestrictSex) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='" . htmlspecialchars($resAge) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($resEducation) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resUser) . "'" .
+                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resIsWork) . "'" .
+                                "</td><td>" . "<button style='width: 150px' type='submit' name='subOffer".$i."'"."class='btn btn-primary'>Согласовать</button>" .
+                                "</td></tr>";    
                         }
                         echo "</table></form>";
-                        if (isset($_POST['subOffer'])) {
-                            $id = $_POST['id'];
-                            $completeOffer = 1; //1 - сделка согласована, 0 - не согласована
-                            $stmt = pdo()->prepare("UPDATE `offers` SET `completeOffer` = '$completeOffer' WHERE `id` = '$id'");
-                            $stmt->execute();
-                            //При выводе id будет браться всегда последняя запись из сгенерированной таблицы, т.к. у каждой строки одинаковый name='id'
-                            //Пытался сделать через name = 'id[]', но не смог автоматизировать запрос
-                        }
                         ?>
+
                     </div>
                 </div>
             </div>
