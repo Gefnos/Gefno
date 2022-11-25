@@ -248,8 +248,7 @@
                                                                                                                                                 $stmt = pdo()->prepare("SELECT `idReceipt` FROM `receipts` WHERE `username` = :username");
                                                                                                                                                 $stmt->execute(['username' => $username]);
                                                                                                                                                 $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                                                                                                                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                                                                                                                                                echo $res[0]["idReceipt"]; ?>">
+                                                                                                                                                $stmt->setFetchMode(PDO::FETCH_ASSOC);                                                                                                         echo $res[0]["idReceipt"]; ?>">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="surName" class="form-label">Фамилия</label>
