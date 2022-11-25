@@ -11,7 +11,7 @@ $stmt = pdo()->prepare("SELECT * FROM `offers`");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt->setFetchMode(PDO::FETCH_ASSOC);  
-
+//выгрузка таблицы из базы 
 echo "<table class='table' style='border-spacing: 0px 0px; width: 100%; font-size: 18px;'>" .  "<thead class='thead-table'><tr><th scope='col' style='width: 150px; text-align: center;border-bottom: 2px solid black;'>" . "<h3>Номер</h3>" .
 "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Профессия</h3>" .
 "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Кол-во рабочих мест</h3>" .

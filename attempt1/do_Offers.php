@@ -8,6 +8,7 @@ if (check_auth()) {
     $username = $user['username'];
     echo $username;
 }
+//отправка формы с данными рабочего
 if (isset($_POST['form-worker-submit'])) {
     $stmt = pdo()->prepare("INSERT INTO `clients` (`reg_number`, `surName`, `firstName`, `Patronymic`, `address`, `telephone`, `sex`, `education`, `paymentReceipt`, `requests`, `minSalary`, `townRegion`, `username`)
     VALUES (:reg_number, :surName, :firstName, :Patronymic, :address, :telephone, :sex, :education, :paymentReceipt, :requests, :minSalary, :townRegion, :username)");
@@ -27,6 +28,7 @@ if (isset($_POST['form-worker-submit'])) {
         'townRegion' => $_POST['townRegion'],
     ]);
 }
+//отправка формы с данными работодателя
 if(isset($_POST['form-boss-submit'])){
     $stmt = pdo()->prepare("INSERT INTO `bosses` (`titleFirm`,`legalForm`,`ownership`,`address`,`telephone`,`persInspector`,`serviceBuy`,`username`)
     VALUES (:titleFirm,:legalForm,:ownership,:address,:telephone,:persInspector,:serviceBuy,:username)");

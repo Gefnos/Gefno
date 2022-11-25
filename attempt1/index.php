@@ -244,9 +244,12 @@
 
                                     <div class="col-md-6">
                                         <label for="reg_number" class="form-label">Регистрационный номер</label>
-                                        <input type="text" readonly name="reg_number" class="reg_number form-control" id="reg_number" value="<? 
-                                        $stmt = pdo()->prepare("SELECT `idReceipt` FROM `receipts` WHERE `username` = :username");
-                                        $stmt->execute(['username' => $username]); $res = $stmt -> fetchAll(PDO::FETCH_ASSOC);   $stmt->setFetchMode(PDO::FETCH_ASSOC); echo $res[0]["idReceipt"]; ?>">
+                                        <input type="text" readonly name="reg_number" class="reg_number form-control" id="reg_number" value="<?
+                                                                                                                                                $stmt = pdo()->prepare("SELECT `idReceipt` FROM `receipts` WHERE `username` = :username");
+                                                                                                                                                $stmt->execute(['username' => $username]);
+                                                                                                                                                $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                                                                                                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                                                                                                                                echo $res[0]["idReceipt"]; ?>">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="surName" class="form-label">Фамилия</label>
@@ -354,6 +357,7 @@
                                     <option value="0">Ищу работника</option>
                                     <option value="1">Ищу работу</option>
                                     <option selected value="2">Все</option>
+                                    <option value="3">Согласованные заявки</option>
                                 </select>
                                 <div class="d-flex">
                                     <button type="submit" name="btnFilters" class="btn btn-primary w-100">Сохранить</button>
@@ -381,24 +385,30 @@
                                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                                 break;
-                                case '1':
-                                    $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '0' ");
-                                    $stmt->execute();
-                                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                                    break;
-                                    case '2':
-                                        $stmt = pdo()->prepare("SELECT * FROM `offers`");
-                                        $stmt->execute();
-                                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                                        break;
-                                        default:
-                                        $stmt = pdo()->prepare("SELECT * FROM `offers`");
-                                        $stmt->execute();
-                                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                                            break;
+                            case '1':
+                                $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `isWork` = '0' ");
+                                $stmt->execute();
+                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                break;
+                            case '2':
+                                $stmt = pdo()->prepare("SELECT * FROM `offers`");
+                                $stmt->execute();
+                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                break;
+                            case '3':
+                                $stmt = pdo()->prepare("SELECT * FROM `offers` WHERE `completeOffer` = '1'");
+                                $stmt->execute();
+                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                break;
+                            default:
+                                $stmt = pdo()->prepare("SELECT * FROM `offers`");
+                                $stmt->execute();
+                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                break;
                         }
                         echo "<table class='table' style='border-spacing: 0px 0px; width: 100%; font-size: 18px;'>" .  "<thead class='thead-table'><tr><th scope='col' style='width: 150px; text-align: center;border-bottom: 2px solid black;'>" . "<h3>Номер</h3>" .
                             "</th><th scope='col' style='width: 150px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Профессия</h3>" .
@@ -412,9 +422,13 @@
                             "</th><th scope='col' style='width: 90px; text-align: center; border-bottom: 2px solid black;'>" . "<h3>Работа</h3>" .
                             "</th></tr></thead>";
 
-                        echo "<form>";
-                        for ($i=0; $i < count($result); $i++) { 
+                        echo "<form method='POST'>";
+                        $idStr;
+
+                        for ($i = 0; $i < count($result); $i++) {
+
                             $resID = $result[$i]['id'];
+                            $resid[$i] = $resID;
                             $resProfession = $result[$i]['profession'];
                             $resCountPlace = $result[$i]['countPlace'];
                             $resSalary = $result[$i]['salary'];
@@ -424,14 +438,16 @@
                             $resEducation = $result[$i]['education'];
                             $resUser = $result[$i]['user'];
                             $resIsWork = $result[$i]['isWork'];
-                            $subOffer = 'subOffer'.$i;
+                            $subOffer = 'subOffer';
+
                             if ($resIsWork == '1') {
                                 $resIsWork = 'Работник';
                             } else {
                                 $resIsWork = 'Работодатель';
                             }
+
                             echo
-                                "<tr><td>"  .  "<input style='width: 150px;'     name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
+                            "<tr><td>"  . "<input style='width: 150px;' name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($resProfession) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($resCountPlace) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($resSalary) . "'" .
@@ -440,19 +456,28 @@
                                 "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='От " . htmlspecialchars($resAge) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($resEducation) . "'" .
                                 "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resUser) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resIsWork) . "'" .
-                                "</td><td>" . "<button style='width: 150px' type='submit' name='subOffer' class='btn btn-primary'>Согласовать</button>" .
-                                "</td></tr>";   
-                             
+                                "</td><td>" . "<input style='width: 150px;' name='isWork' type='text' readonly value='" . htmlspecialchars($resIsWork) . "'" .
+                                "</td><td>" . "<button style='width: 150px' type='submit' onclick='respond($resID)' name='subOffer' value='' class='btn btn-primary'>Согласовать</button>" .
+                                "</td></tr>";
                         }
-                        echo "</table></form>";
-                        if (isset($_POST["subOffer"])) {
-                            $completeOffer = 1; //1 - сделка согласована, 0 - не согласована
-                            $stmt = pdo()->prepare("INSERT INTO `offers` (`completeOffer`) VALUES ('$completeOffer')");
-                            $stmt->execute();
-                        } 
-                        ?>
 
+                        echo "</table></form>";
+
+                        ?>
+                        <!-- <input type="text" id="hiddenTrade" value=""> -->
+                        <script>
+                            function respond(resID) {
+                                let idHide = resID;
+                                $.ajax({
+                                    type: 'POST',
+                                    url: 'do_Trade.php',
+                                    data: {
+                                        'idHide': idHide
+                                    }
+                                })
+                                // alert(idHide);
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
@@ -487,6 +512,7 @@
 
 
     <?php } ?>
+
 
 
 </body>

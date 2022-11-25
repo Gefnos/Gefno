@@ -24,7 +24,7 @@ if (isset($_POST['btnSaveOffer'])) {
     $username = $user['username'];
 
     // //Добавим пользователя в базу
-    $stmt = pdo()->prepare(" INSERT INTO `offers` (`profession`, `countPlace`, `salary`, `townRegion`, `restrictSex`, `age`, `education`, `user`, `isWork`) VALUES ('$profession', '$countPlace', '$salary', '$townRegion', '$restrictSex', '$age', '$education', '$username', '$isWork')");
+    $stmt = pdo()->prepare("INSERT INTO `offers` (`profession`, `countPlace`, `salary`, `townRegion`, `restrictSex`, `age`, `education`, `user`, `isWork`) VALUES ('$profession', '$countPlace', '$salary', '$townRegion', '$restrictSex', '$age', '$education', '$username', '$isWork')");
     $stmt->execute();
     header('Location: index.php');
 }
