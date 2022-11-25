@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 21 2022 г., 13:23
+-- Время создания: Ноя 25 2022 г., 14:02
 -- Версия сервера: 10.4.24-MariaDB
 -- Версия PHP: 7.1.33
 
@@ -92,19 +92,24 @@ CREATE TABLE `offers` (
   `age` int(255) NOT NULL,
   `education` varchar(1111) NOT NULL,
   `user` varchar(1111) NOT NULL,
-  `isWork` tinyint(1) DEFAULT NULL COMMENT '0- работодатель\r\n1 - работник'
+  `isWork` int(2) DEFAULT NULL COMMENT '0- работодатель\r\n1 - работник\r\n2 - все',
+  `completeOffer` varchar(1111) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 --
 -- Дамп данных таблицы `offers`
 --
 
-INSERT INTO `offers` (`id`, `profession`, `countPlace`, `salary`, `townRegion`, `restrictSex`, `age`, `education`, `user`, `isWork`) VALUES
-(1, 'Программист', 1, 90000, '5 микрорайон', 'Нет', 18, 'Среднее специальное', 'Yuliya', 0),
-(2, 'Web-дизайнер', 1, 44000, 'Центральный', 'Женский', 18, 'Высшее', 'Yuliya', 0),
-(3, 'Инженер', 1, 80000, 'Дзержинский', 'Нет', 26, 'Высшее', 'Slava', 0),
-(4, 'Программист', 1, 120000, 'Городище', 'Нет', 42, 'Среднее специальное', 'Slava', 0),
-(5, 'Преподаватель', 1, 25000, 'Ленина', 'Нет', 27, 'Высшее', 'Dugin', 1);
+INSERT INTO `offers` (`id`, `profession`, `countPlace`, `salary`, `townRegion`, `restrictSex`, `age`, `education`, `user`, `isWork`, `completeOffer`) VALUES
+(1, 'Программист', 1, 90000, '5 микрорайон', 'Нет', 18, 'Среднее специальное', 'Yuliya', 0, '1'),
+(2, 'Web-дизайнер', 1, 44000, 'Центральный', 'Женский', 18, 'Высшее', 'Yuliya', 0, NULL),
+(3, 'Инженер', 1, 80000, 'Дзержинский', 'Нет', 26, 'Высшее', 'Slava', 0, NULL),
+(4, 'Программист', 1, 120000, 'Городище', 'Нет', 42, 'Среднее специальное', 'Slava', 0, NULL),
+(5, 'Преподаватель', 1, 25000, 'Ленина', 'Нет', 27, 'Высшее', 'Dugin', 1, NULL),
+(6, 'Системный администратор', 3, 22000, 'ул. Волгоградская', 'Мужской', 20, 'Среднее специальное', 'Idris', 1, NULL),
+(7, 'fiosjdioafisaodf', 1, 95345, 'gfdsgdfg', 'fgds', 18, 'fsafsdfd', 'username', 1, NULL),
+(8, 'fiosjdioafisaodf', 1, 95345, 'gfdsgdfg', 'fgds', 18, 'fsafsdfd', 'username', 1, '3'),
+(9, 'fiosjdioafisaodf', 1, 95345, 'gfdsgdfg', 'fgds', 18, 'fsafsdfd', 'username', 1, '7');
 
 -- --------------------------------------------------------
 
@@ -166,7 +171,9 @@ ALTER TABLE `bosses`
 -- Индексы таблицы `clients`
 --
 ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`(768)),
+  ADD KEY `username_2` (`username`(768));
 
 --
 -- Индексы таблицы `offers`
@@ -206,7 +213,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT для таблицы `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `receipts`
@@ -219,6 +226,16 @@ ALTER TABLE `receipts`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `clients`
+--
+ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
