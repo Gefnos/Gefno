@@ -36,9 +36,52 @@
     <?php if ($user) { ?>
 
         <h1>Добро пожаловать, <?= htmlspecialchars($user['username']) ?>!</h1>
-        <a href="">Добавить предложение</a>
+
+        <!--  TEST BUTTON BEGIN -->
+        <br>
+        <input class="btnSteam" type="button" value="Вкл./Выкл. стим-панк версию" onclick="changeFont()">
+        <script>
+            var counter = 1;
+            var nav_link = document.getElementsByClassName('nav-link');
+            var tab_pane = document.getElementsByClassName('tab-pane');
+            var btn_primary = document.getElementsByClassName('btn');
+            function changeFont(){
+                counter++;
+                if(counter % 2){
+                    document.body.style.fontFamily='Arial'; 
+                    document.body.style.backgroundColor='white'; 
+                    for (var i = 0; i < nav_link.length; i++) {
+                        nav_link[i].style.backgroundColor = "white";
+                        nav_link[i].style.color = 'black';
+                    }
+                    for (var a = 0; a < btn_primary.length; a++) {
+                        btn_primary[a].style.backgroundColor = '#4486FF';
+                    }
+                    tab_pane.style.backgroundColor = 'white';
+                }
+                else{
+                    document.body.style.backgroundColor='#997a4f'; 
+                    document.body.style.fontFamily='MiddleCentury';
+                    for (var i = 0; i < nav_link.length; i++) {
+                        nav_link[i].style.backgroundColor = "#795b32";
+                        nav_link[i].style.color = 'white';
+                    }
+                    for (var a = 0; a < btn_primary.length; a++) {
+                        btn_primary[a].style.backgroundColor = '#795b32';
+                    }
+                    form_offer.style.borderColor = '#3f301b';
+                    tab_pane.style.backgroundColor = '#795b32';
+                }
+           
+            }
+        </script>
+        <div class="a_Pank">
+         <p><a href="">Добавить предложение</a></p>
+        </div>
+ 
+        
         <form action="#" method="get">
-            <button type="submit" name="logout" id="logout" class="btn btn-primary w-25">Выйти</button>
+            <button type="submit" name="logout" id="logout" class="btn btn-primary w-25 mb-5">Выйти</button>
             <? session_start();
             if (isset($_GET['logout'])) {
                 session_destroy();
@@ -51,51 +94,59 @@
         <script>
             document.getElementsByTagName("a")[0].onclick = () => {
                 document.getElementById("listCrew").innerHTML +=
-                    `       <div class="border border-success w-50 ">
-                                    <form method="post" action="#">
-                                        <div class="d-flex flex-wrap ">
-                                            <div class="w-50 ">
-                                                <div class="form-group">
-                                                    <label for="profession">Профессия</label>
-                                                    <input type="text" class="form-control" id="profession">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="countWorkPlace">Кол-во рабочих мест</label>
-                                                    <input type="number" class="form-control" id="countWorkPlace">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="salary">Зарплата</label>
-                                                    <input type="number" class="form-control" id="salary">
-                                                </div>
+                    `          <div class="formOffer w-50">
+                                <form method="post" action="sendOffer.php" id="formContent">
+                                    <div class="formInputs d-flex flex-wrap p-3" >
+                                        <div class="w-50 ">
+                                            <div class="form-group">
+                                                <label for="profession">Профессия</label>
+                                                <input type="text" class="form-control" id="profession" name="profession">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="countPlace">Кол-во рабочих мест</label>
+                                                <input type="number" class="form-control" id="countPlace" name="countPlace">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="salary">Зарплата</label>
+                                                <input type="number" class="form-control" id="salary" name="salary">
+                                            </div>
+                                        </div>
 
-                                            <div class="w-50">
-                                                <div class="form-group">
-                                                    <label for="townRegion">Регион города</label>
-                                                    <input type="text" class="form-control" id="townRegion">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="restrictSex">Ограничение по полу</label>
-                                                    <input type="text" class="form-control" id="restrictSex">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="age">Возраст</label>
-                                                    <input type="number" class="form-control" id="age">
-                                                </div>
+                                        <div class="w-50">
+                                            <div class="form-group">
+                                                <label for="townRegion">Регион города</label>
+                                                <input type="text" class="form-control" id="townRegion" name="townRegion">
                                             </div>
-                                            <div class="w-100 d-flex justify-content-center">
-                                                <div class="form-group w-50 ">
-                                                    <label for="education">Образование</label>
-                                                    <input type="text" class="form-control" id="education">
+                                            <div class="form-group">
+                                                <label for="restrictSex">Ограничение по полу</label>
+                                                <input type="text" class="form-control" id="restrictSex" name="restrictSex">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="age">Возраст</label>
+                                                <input type="number" class="form-control" id="age" name="age">
+                                            </div>
+                                        </div>
+                                        <div class="w-100 d-flex justify-content-center">
+                                            <div class="form-group w-50 ">
+                                                <label for="education">Образование</label>
+                                                <input type="text" class="form-control" id="education" name="education">
+                                                <div class="form-check mt-3">
+                                                    <input class="form-check-input" type="checkbox" name="isWork" id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Я ищу работу
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mt-3 w-25">Предложить заявку</button>
-                                    </form>
-                                    <form action="WorkOffers.php" method="post">
-                                        <button type="submit" class="btn btn-success mt-3 w-25">Выгрузить</button>
-                                    </form>
-                                </div>`;
+                                    </div>
+                                    <div class="px-3">
+                                        <button type="submit" class="btn btn-primary mt-3 w-25" name="btnSaveOffer" id="btnSaveOffer">Предложить заявку</button>
+                                    </div>
+                                </form>
+                                <form action="WorkOffers.php" method="post" class="px-3 mb-2">
+                                    <button type="submit" class="btn btn-success mt-3 w-25">Выгрузить</button>
+                                </form>
+                            </div>`;
                 return false;
             };
         </script>
@@ -176,11 +227,10 @@
             <div class="tab-pane fade" id="crew" role="tabpanel" aria-labelledby="crew-tab">
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-crew-tab">
-                        <div class="d-flex flex-wrap justify-content-around w-100 border border-primary" id="listCrew">
-                            <div class="border border-success w-50">
-
-                                <form method="post" action="sendOffer.php">
-                                    <div class="d-flex flex-wrap ">
+                        <div class="d-flex flex-wrap justify-content-around w-100" id="listCrew">
+                            <div class="formOffer w-50">
+                                <form method="post" action="sendOffer.php" id="formContent">
+                                    <div class="formInputs d-flex flex-wrap p-3">
                                         <div class="w-50 ">
                                             <div class="form-group">
                                                 <label for="profession">Профессия</label>
@@ -223,9 +273,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3 w-25" name="btnSaveOffer" id="btnSaveOffer">Предложить заявку</button>
+                                    <div class="px-3">
+                                        <button type="submit" class="btn btn-primary mt-3 w-25" name="btnSaveOffer" id="btnSaveOffer">Предложить заявку</button>
+                                    </div>
                                 </form>
-                                <form action="WorkOffers.php" method="post">
+                                <form action="WorkOffers.php" method="post" class="px-3 mb-2">
                                     <button type="submit" class="btn btn-success mt-3 w-25">Выгрузить</button>
                                 </form>
                             </div>
@@ -248,7 +300,8 @@
                                                                                                                                                 $stmt = pdo()->prepare("SELECT `idReceipt` FROM `receipts` WHERE `username` = :username");
                                                                                                                                                 $stmt->execute(['username' => $username]);
                                                                                                                                                 $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                                                                                                                                $stmt->setFetchMode(PDO::FETCH_ASSOC);                                                                                                         echo $res[0]["idReceipt"]; ?>">
+                                                                                                                                                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                                                                                                                                echo $res[0]["idReceipt"]; ?>">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="surName" class="form-label">Фамилия</label>
@@ -444,20 +497,34 @@
                             } else {
                                 $resIsWork = 'Работодатель';
                             }
-
-                            echo
-                            "<tr><td>"  . "<input style='width: 150px;' name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($resProfession) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($resCountPlace) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($resSalary) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='townRegion' type='text' readonly value='" . htmlspecialchars($resTownRegion) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='restrictSex' type='text' readonly value='" . htmlspecialchars($resRestrictSex) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='От " . htmlspecialchars($resAge) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($resEducation) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resUser) . "'" .
-                                "</td><td>" . "<input style='width: 150px;' name='isWork' type='text' readonly value='" . htmlspecialchars($resIsWork) . "'" .
-                                "</td><td>" . "<button style='width: 150px' type='submit' onclick='respond($resID)' name='subOffer' value='' class='btn btn-primary'>Согласовать</button>" .
-                                "</td></tr>";
+                            if ($findIs == '3') {
+                                echo
+                                "<tr><td>"  . "<input style='width: 150px;' name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($resProfession) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($resCountPlace) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($resSalary) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='townRegion' type='text' readonly value='" . htmlspecialchars($resTownRegion) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='restrictSex' type='text' readonly value='" . htmlspecialchars($resRestrictSex) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='От " . htmlspecialchars($resAge) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($resEducation) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resUser) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='isWork' type='text' readonly value='" . htmlspecialchars($resIsWork) . "'" .
+                                    "</td></tr>";
+                            } else {
+                                echo
+                                "<tr><td>"  . "<input style='width: 150px;' name='id' type='text' readonly value='" . htmlspecialchars($resID) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='profession' type='text' readonly value='" . htmlspecialchars($resProfession) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='countPlace' type='text' readonly value='" . htmlspecialchars($resCountPlace) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='salary' type='text' readonly value='" . htmlspecialchars($resSalary) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='townRegion' type='text' readonly value='" . htmlspecialchars($resTownRegion) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='restrictSex' type='text' readonly value='" . htmlspecialchars($resRestrictSex) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='age' type='text' readonly value='От " . htmlspecialchars($resAge) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='education' type='text' readonly value='" . htmlspecialchars($resEducation) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='user' type='text' readonly value='" . htmlspecialchars($resUser) . "'" .
+                                    "</td><td>" . "<input style='width: 150px;' name='isWork' type='text' readonly value='" . htmlspecialchars($resIsWork) . "'" .
+                                    "</td><td>" . "<button style='width: 150px' type='submit' onclick='respond($resID)' name='subOffer' value='' class='btn btn-primary'>Согласовать</button>" .
+                                    "</td></tr>";
+                            }
                         }
 
                         echo "</table></form>";
@@ -489,8 +556,6 @@
         <div class="main-container">
             <div class="container">
                 <h1 class="text-center">Registration</h1>
-
-
                 <form method="post" action="do_register.php" class="form-container">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>

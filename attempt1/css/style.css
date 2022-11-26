@@ -1,10 +1,36 @@
 *{
-    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+ 
+}
+a{
+    text-decoration: none;
+}
+@font-face {
+    font-family: MiddleCentury;
+    src: url(../fonts/Steamy.otf);
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    font-size: 26px !important;
+    font-family: 'Arial';
 }
 :root{
-    --bgColor: red;
+    --bs-gray-100: #f8f9fa;
 }
 
+#check:checked{
+    font-family: 'MiddleCentury';
+}
+.btnSteam{
+    color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    width: 20%;
+    height: 50px;
+    background-color: #967444;
+}
 .container{
     padding: 30px;
     width: 20%;
@@ -18,12 +44,11 @@
     border-image: linear-gradient(to top, gray, blue) 10 100%;
 }
 .main-container{
-    background-color: var(--bgColor);
+    background-color: var(--bs-gray-200);
     width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
-    border: 1px solid red;
 }
 .form-container{
     margin-top: 10px;
@@ -70,11 +95,6 @@
 
 #sub_btn{
     display: block;
-    border: 1px solid red;
-}
-
-.forma{
-    border: 1px solid red;
 }
 
 .form-control{
@@ -83,5 +103,12 @@
 #receiptContainer{
     display: none;
 }
+.formOffer{
+    border-radius: 10px;
+    border:5px solid #3f301b;
+}
 
+.formInputs input:not(input[type="checkbox"]){
+    width: 75%;
+}
 

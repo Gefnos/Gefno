@@ -7,18 +7,20 @@ if (check_auth()) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     $username = $user['username'];
 }
+
 $stmt = pdo()->prepare("SELECT * FROM `receipts` WHERE `username` = :username");
 $stmt->execute(['username' => $username,]);
 $isBuy = 0;
 if (isset($_GET['saveReceipt'])) {
-     if ($stmt->rowCount() > 0) {       
-         echo "Вы уже оплатили регистрационный взнос";
-         header('Location: index.php');
-         die;
-     } else {
+    if ($stmt->rowCount() > 0) {
+        echo "Вы уже оплатили регистрационный взнос";
         header('Location: index.php');
-         $stmt = pdo()->prepare("INSERT INTO `receipts` (`date`, `cost`, `username`, `signedby`, `idReceipt`) VALUES (:date, :cost, :username, :signedby, :idReceipt)");
-         $stmt->execute([
+        die;
+    } else {
+        header('Location: index.php');
+        $idReceipt = '000' . rand(100000, 9999999);
+        $stmt = pdo()->prepare("INSERT INTO `receipts` (`date`, `cost`, `username`, `signedby`, `idReceipt`) VALUES (:date, :cost, :username, :signedby, :idReceipt)");
+        $stmt->execute([
             'date' => $_GET['date'],
             'cost' => $_GET['cost'],
             'username' => $_GET['client'],
@@ -28,4 +30,3 @@ if (isset($_GET['saveReceipt'])) {
         $isBuy = 1;
     }
 }
-
