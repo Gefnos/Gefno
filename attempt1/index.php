@@ -290,7 +290,7 @@
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         <div class="for-container d-flex justify-content-around w-100">
-                            <div class="for-worker w-50 text-center">
+                            <div class="for-worker w-50 text-center border border-4">
                                 <h3>Профиль для работника:</h3>
                                 <form class="form-worker row g-3" name="form-worker" id="form-worker" method="POST" action="do_Offers.php">
 
@@ -334,18 +334,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="requests" class="form-label">Желаемая должность</label>
-                                        <input type="text" name="requests" class="requests form-control" id="requests" placeholder="Среднее...">
+                                        <input type="text" name="requests" class="requests form-control" id="requests" placeholder="Программист...">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="minSalary" class="form-label">Мин. зарплата</label>
-                                        <input type="text" name="minSalary" class="minSalary form-control" id="minSalary" placeholder="Среднее...">
+                                        <input type="number" name="minSalary" class="minSalary form-control" id="minSalary" placeholder="96000...">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="townRegion" class="form-label">регион города</label>
-                                        <input type="text" name="townRegion" class="townRegion form-control" id="townRegion" placeholder="Среднее...">
+                                        <input type="text" name="townRegion" class="townRegion form-control" id="townRegion" placeholder="Центр...">
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-12 w-75">
                                         <select name="sex" class="sex form-select" aria-label="Пример выбора по умолчанию" id="sex">
                                             <option selected value="0">Женщина</option>
                                             <option value="1">Мужчина</option>
@@ -357,7 +357,7 @@
                                 </form>
                             </div>
 
-                            <div class="for-boss w-50 text-center">
+                            <div class="for-boss w-50 text-center border border-4">
                                 <h3>Профиль для работодателя:</h3>
                                 <form class="form-worker row g-3" name="form-worker" id="form-worker" method="POST" action="do_Offers.php">
 
@@ -475,10 +475,7 @@
                             "</th></tr></thead>";
 
                         echo "<form method='POST'>";
-                        $idStr;
-
                         for ($i = 0; $i < count($result); $i++) {
-
                             $resID = $result[$i]['id'];
                             $resid[$i] = $resID;
                             $resProfession = $result[$i]['profession'];
@@ -491,7 +488,6 @@
                             $resUser = $result[$i]['user'];
                             $resIsWork = $result[$i]['isWork'];
                             $subOffer = 'subOffer';
-
                             if ($resIsWork == '1') {
                                 $resIsWork = 'Работник';
                             } else {
@@ -526,11 +522,8 @@
                                     "</td></tr>";
                             }
                         }
-
                         echo "</table></form>";
-
                         ?>
-                        <!-- <input type="text" id="hiddenTrade" value=""> -->
                         <script>
                             function respond(resID) {
                                 let idHide = resID;
@@ -541,7 +534,6 @@
                                         'idHide': idHide
                                     }
                                 })
-                                // alert(idHide);
                             }
                         </script>
                     </div>
